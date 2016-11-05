@@ -27,4 +27,5 @@ _testmain.go
 .gitignore
 .idea/
 api-slideshow-go.iml
+api-slideshow-go
 
