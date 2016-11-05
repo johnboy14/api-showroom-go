@@ -25,12 +25,6 @@ _testmain.go
 *.test
 *.prof
 .gitignore
-.idea/compiler.xml
-.idea/copyright/
-.idea/misc.xml
-.idea/modules.xml
-.idea/thriftCompiler.xml
-.idea/vcs.xml
-.idea/workspace.xml
+.idea/
 api-slideshow-go.iml
-*.iml
+
