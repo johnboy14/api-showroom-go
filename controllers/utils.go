@@ -10,13 +10,13 @@ type Response struct {
 	Data   interface{} `json:"data"`
 }
 
-func BadRequest(w http.ResponseWriter, err error) {
+func BadRequestResponse(w http.ResponseWriter, err error) {
 	w.WriteHeader(http.StatusBadRequest)
-	response := Response{Errors: err.Error()}
+	response := Response{Errors: err.Error(), Data: nil}
 	RenderJson(w, response)
 }
 
-func Created(w http.ResponseWriter, object interface{}) {
+func CreatedResponse(w http.ResponseWriter, object interface{}) {
 	w.WriteHeader(http.StatusCreated)
 	response := Response{Errors: "", Data: object}
 	RenderJson(w, response)

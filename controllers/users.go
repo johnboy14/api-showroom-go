@@ -10,9 +10,9 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 
 	err := models.DecodeAndValidate(r, user)
 	if err != nil {
-		BadRequest(w, err)
+		BadRequestResponse(w, err)
 		return
 	}
 	persistedUser, _ := models.Create(*user)
-	Created(w, persistedUser)
+	CreatedResponse(w, persistedUser)
 }
