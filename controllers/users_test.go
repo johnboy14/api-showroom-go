@@ -21,9 +21,12 @@ func TestSpec(t *testing.T) {
 			handler := http.HandlerFunc(UserCreate)
 			handler.ServeHTTP(rr, req)
 
+			var response Response
+			DecodeJsonTo(rr.Body, &response)
 			So(rr.Code, ShouldEqual, 201)
 			So(rr.Header().Get("Content-Type"), ShouldEqual, "application/json")
 		})
+
 		Convey("Given a user, When email is invalid, Then return 400 with suitable Error message", func() {
 			newUser := `{"first_name": "John", "last_name": "Ervine", "email": "johnervinehotmail.com", "password": "password1"}`
 			reader := strings.NewReader(string(newUser))
@@ -34,7 +37,13 @@ func TestSpec(t *testing.T) {
 			handler := http.HandlerFunc(UserCreate)
 			handler.ServeHTTP(rr, req)
 
+			response := Response{}
+			DecodeJsonTo(rr.Body, &response)
+
 			So(rr.Code, ShouldEqual, 400)
+			So(response.Data, ShouldBeNil)
+			So(rr.Header().Get("Content-Type"), ShouldEqual, "application/json")
+			So(response.Errors, ShouldEqual, "invalid email address")
 		})
 	})
 }

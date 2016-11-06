@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"bytes"
 	"encoding/json"
 	"net/http"
 )
@@ -25,4 +26,8 @@ func CreatedResponse(w http.ResponseWriter, object interface{}) {
 func RenderJson(w http.ResponseWriter, object interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(object)
+}
+
+func DecodeJsonTo(bytes *bytes.Buffer, object interface{}) {
+	json.NewDecoder(bytes).Decode(object)
 }

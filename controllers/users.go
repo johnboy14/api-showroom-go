@@ -14,5 +14,9 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	persistedUser, _ := models.Create(*user)
-	CreatedResponse(w, persistedUser)
+	createdUserResponse(w, persistedUser)
+}
+
+func createdUserResponse(w http.ResponseWriter, user models.User) {
+	CreatedResponse(w, user)
 }
