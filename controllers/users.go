@@ -1,24 +1,18 @@
 package controllers
 
 import (
-	"fmt"
-	"github.com/anthify/api-slideshow-go/models"
+	"github.com/johnboy14/api-slideshow-go/models"
 	"net/http"
 )
 
 func UserCreate(w http.ResponseWriter, r *http.Request) {
-	user := models.User{}
+	var user *models.User = &models.User{}
 
 	err := models.DecodeAndValidate(r, user)
-
 	if err != nil {
-		// send a bad request back to the caller
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("bad request"))
+		BadRequest(w, err)
 		return
 	}
-
-	persistedUser, _ := models.Create(user)
-
-	RenderJson(w, persistedUser)
+	//persistedUser, _ := models.Create(user)
+	Created(w, user)
 }

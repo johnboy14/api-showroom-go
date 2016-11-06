@@ -2,31 +2,29 @@ package controllers
 
 import (
 	"encoding/json"
-	"io"
-	"io/ioutil"
 	"net/http"
 )
 
-func UnmarshallJsonBody(r *http.Request, o interface{}) error {
-	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
-	if err != nil {
-		return error(err)
-	}
+type Response struct {
+	Errors string      `json:"errors"`
+	Data   interface{} `json:"data"`
+}
 
-	jsonerr := json.Unmarshal(body, &o)
-	if jsonerr != nil {
-		return error(err)
-	}
+func BadRequest(w http.ResponseWriter, err error) {
+	w.WriteHeader(http.StatusBadRequest)
+	response := Response{Errors: err.Error()}
+	RenderJson(w, response)
+}
 
-	return nil
+func Created(w http.ResponseWriter, object interface{}) {
+	w.WriteHeader(http.StatusCreated)
+	response := Response{Errors: "", Data: object}
+	RenderJson(w, response)
 }
 
 func RenderJson(rw http.ResponseWriter, object interface{}) {
 	data, _ := json.MarshalIndent(object, "", "  ")
-
-	data = append(data, '\n')
-
+	data = append(data)
 	rw.Header().Set("Content-Type", "application/json")
-
 	rw.Write(data)
 }

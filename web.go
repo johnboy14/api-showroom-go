@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/anthify/api-slideshow-go/controllers"
 	"github.com/codegangsta/negroni"
+	"github.com/johnboy14/api-slideshow-go/controllers"
 	"os"
 )
 

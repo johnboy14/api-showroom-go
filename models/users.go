@@ -10,7 +10,7 @@ type User struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
-	password  string `json:"password"`
+	Password  string `json:"password"`
 }
 
 func Create(user User) (User, error) {
@@ -37,7 +37,7 @@ func (u User) Validate(r *http.Request) error {
 		return ErrInvalidEmail
 	}
 
-	if !govalidator.StringLength(u.password, "2", "50") {
+	if !govalidator.StringLength(u.Password, "2", "30") {
 		return ErrInvalidPassword
 	}
 
