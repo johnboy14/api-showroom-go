@@ -13,6 +13,6 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 		BadRequest(w, err)
 		return
 	}
-	//persistedUser, _ := models.Create(user)
-	Created(w, user)
+	persistedUser, _ := models.Create(*user)
+	Created(w, persistedUser)
 }

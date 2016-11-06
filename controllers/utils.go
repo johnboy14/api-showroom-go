@@ -22,9 +22,7 @@ func Created(w http.ResponseWriter, object interface{}) {
 	RenderJson(w, response)
 }
 
-func RenderJson(rw http.ResponseWriter, object interface{}) {
-	data, _ := json.MarshalIndent(object, "", "  ")
-	data = append(data)
-	rw.Header().Set("Content-Type", "application/json")
-	rw.Write(data)
+func RenderJson(w http.ResponseWriter, object interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(object)
 }
