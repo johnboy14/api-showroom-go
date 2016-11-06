@@ -7,14 +7,18 @@ import (
 )
 
 func UserCreate(w http.ResponseWriter, r *http.Request) {
-	newUser := models.User{}
-	err := UnmarshallJsonBody(r, &newUser)
+	user := models.User{}
+
+	err := models.DecodeAndValidate(r, user)
 
 	if err != nil {
-		fmt.Println(err)
+		// send a bad request back to the caller
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("bad request"))
+		return
 	}
 
-	user, _ := models.Create(newUser)
+	persistedUser, _ := models.Create(user)
 
-	RenderJson(w, user)
+	RenderJson(w, persistedUser)
 }

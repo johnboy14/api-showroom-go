@@ -28,4 +28,5 @@ _testmain.go
 .idea/
 api-slideshow-go.iml
 api-slideshow-go
+watchers.xml
 
